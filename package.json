@@ -1,0 +1,40 @@
+{
+  "name": "charts",
+  "version": "1.0.0",
+  "description": "Simple React Charts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caesai/Charts.git"
+  },
+  "author": "Vasily Kharlamov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/caesai/Charts/issues"
+  },
+  "homepage": "https://github.com/caesai/Charts#readme",
+  "dependencies": {
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-vis": "^1.7.10"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.12.0",
+    "eslint-plugin-react": "^7.5.1",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.8.1"
+  }
+}
