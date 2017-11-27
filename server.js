@@ -40,6 +40,4 @@ app.get('/charts', function(req, res) {
   res.send(chartsData);
 });
 
-app.listen(3000, ()=>{
-  console.log('listen to port 3000');
-});
+app.listen(3000);

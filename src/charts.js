@@ -14,8 +14,8 @@ export function checkHttpStatus(response) {
   }
 }
 
-const coordsTime = [];
-const coordsLow = []
+const lowData = [];
+const highData = [];
 
 export class Charts extends React.Component{
   constructor(props) {
@@ -40,9 +40,6 @@ export class Charts extends React.Component{
     })
     .then((json) => {
       console.log(json);
-
-      const lowData = [];
-      const highData = [];
 
       for (let i = 0; i < json.time.length; i++){
         lowData.push(
