@@ -48,8 +48,6 @@ export class Charts extends React.Component{
         lowData.push(
           Object.assign({x: json.time[i]}, {y: json.low[i]})
         )
-      }
-      for (let i = 0; i < json.time.length; i++){
         highData.push(
           Object.assign({x: json.time[i]}, {y: json.high[i]})
         )

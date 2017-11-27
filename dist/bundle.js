@@ -17756,6 +17756,9 @@ function checkHttpStatus(response) {
   }
 }
 
+var coordsTime = [];
+var coordsLow = [];
+
 var Charts = exports.Charts = function (_React$Component) {
   _inherits(Charts, _React$Component);
 
@@ -17764,6 +17767,10 @@ var Charts = exports.Charts = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Charts.__proto__ || Object.getPrototypeOf(Charts)).call(this, props));
 
+    _this.state = {
+      loaded: false,
+      coords: []
+    };
     _this.fetchData = _this.fetchData.bind(_this);
     return _this;
   }
@@ -17771,6 +17778,8 @@ var Charts = exports.Charts = function (_React$Component) {
   _createClass(Charts, [{
     key: 'fetchData',
     value: function fetchData() {
+      var _this2 = this;
+
       return fetch('http://localhost:3000/charts', {
         method: 'get',
         headers: {
@@ -17781,6 +17790,19 @@ var Charts = exports.Charts = function (_React$Component) {
         return response.json();
       }).then(function (json) {
         console.log(json);
+
+        var lowData = [];
+        var highData = [];
+
+        for (var i = 0; i < json.time.length; i++) {
+          lowData.push(Object.assign({ x: json.time[i] }, { y: json.low[i] }));
+          highData.push(Object.assign({ x: json.time[i] }, { y: json.high[i] }));
+        }
+        _this2.setState({
+          loaded: true,
+          low: lowData,
+          high: highData
+        });
       });
     }
   }, {
@@ -17792,14 +17814,18 @@ var Charts = exports.Charts = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        _reactVis.XYPlot,
-        {
-          width: 300,
-          height: 300 },
-        _react2.default.createElement(_reactVis.LineSeries, {
-          data: [{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 15 }] }),
-        _react2.default.createElement(_reactVis.XAxis, null),
-        _react2.default.createElement(_reactVis.YAxis, null)
+        'div',
+        null,
+        this.state.loaded ? _react2.default.createElement(
+          _reactVis.XYPlot,
+          {
+            width: 600,
+            height: 400 },
+          _react2.default.createElement(_reactVis.LineSeries, { color: 'red', data: this.state.low }),
+          _react2.default.createElement(_reactVis.LineSeries, { color: 'green', data: this.state.high }),
+          _react2.default.createElement(_reactVis.XAxis, null),
+          _react2.default.createElement(_reactVis.YAxis, null)
+        ) : null
       );
     }
   }]);
