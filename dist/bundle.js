@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/home/sushkazzlo/Desktop/projects/Charts/dist";
+/******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 188);
@@ -17724,6 +17724,8 @@ exports.Charts = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+exports.checkHttpStatus = checkHttpStatus;
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -17734,6 +17736,8 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactVis = __webpack_require__(200);
 
+__webpack_require__(422);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -17742,16 +17746,49 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function checkHttpStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    var error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
+}
+
 var Charts = exports.Charts = function (_React$Component) {
   _inherits(Charts, _React$Component);
 
-  function Charts() {
+  function Charts(props) {
     _classCallCheck(this, Charts);
 
-    return _possibleConstructorReturn(this, (Charts.__proto__ || Object.getPrototypeOf(Charts)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Charts.__proto__ || Object.getPrototypeOf(Charts)).call(this, props));
+
+    _this.fetchData = _this.fetchData.bind(_this);
+    return _this;
   }
 
   _createClass(Charts, [{
+    key: 'fetchData',
+    value: function fetchData() {
+      return fetch('http://localhost:3000/charts', {
+        method: 'get',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'text/javascript'
+        }
+      }).then(checkHttpStatus).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        console.log(json);
+      });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.fetchData();
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -17759,7 +17796,6 @@ var Charts = exports.Charts = function (_React$Component) {
         {
           width: 300,
           height: 300 },
-        _react2.default.createElement(_reactVis.HorizontalGridLines, null),
         _react2.default.createElement(_reactVis.LineSeries, {
           data: [{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 15 }] }),
         _react2.default.createElement(_reactVis.XAxis, null),
@@ -44719,6 +44755,12 @@ Sunburst.defaultProps = {
 };
 
 exports.default = Sunburst;
+
+/***/ }),
+/* 422 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
